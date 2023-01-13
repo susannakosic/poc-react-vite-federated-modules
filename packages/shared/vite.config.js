@@ -15,15 +15,19 @@ export default defineConfig({
       exposes: {
         './Button': './src/components/Button'
       },
-      shared: ['react']
+      shared:{ // https://github.com/originjs/vite-plugin-federation/issues/226#issuecomment-1380040948 fix release pending
+        react:{
+          version:'18.0.2'
+        }
+      }
     })
   ],
   preview: {
     host: 'localhost',
     port: 5000,
     strictPort: true,
-    headers: {
-      "Access-Control-Allow-Origin": "*"
+    cors: {
+      origin: 'http://localhost:5001',
     }
   },
   build: {
