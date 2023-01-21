@@ -359,10 +359,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@originjs/vite-plugin-federation@^1.1.13":
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/@originjs/vite-plugin-federation/-/vite-plugin-federation-1.1.13.tgz#f2407216678fc2ecf04918557f491e8a3d19bf84"
-  integrity sha512-9Pvzlg6ZNa3mql+6G2mrBWXudOsTD33n+fW/IdGzHMXV7HW1QtXMQdsMdrPnQhIAKj8rF/yz/HkjwN6B7yOIyA==
+"@originjs/vite-plugin-federation@^1.1.14":
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/@originjs/vite-plugin-federation/-/vite-plugin-federation-1.1.14.tgz#b02f0dce0420cf47c88f3598a4a56806c32abff3"
+  integrity sha512-aEz/J3qgZmSQ1tZXvcLTaLcDFInCY09UZFdvopsJllyGw87dWd0cpvw5LEa6DFIhVoeVzbNFAj3mDk3spbw/LA==
   dependencies:
     estree-walker "^3.0.2"
     magic-string "^0.27.0"

@@ -15,11 +15,7 @@ export default defineConfig({
       exposes: {
         './Button': './src/components/Button'
       },
-      shared:{ // https://github.com/originjs/vite-plugin-federation/issues/226#issuecomment-1380040948 fix release pending
-        react:{
-          version:'18.0.2'
-        }
-      }
+      shared: ["react"]
     })
   ],
   preview: {

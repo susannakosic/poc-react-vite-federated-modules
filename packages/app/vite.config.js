@@ -14,11 +14,7 @@ export default defineConfig({
       remotes: {
         shared: 'http://localhost:5000/assets/shared.js',
       },
-      shared:{ // https://github.com/originjs/vite-plugin-federation/issues/226#issuecomment-1380040948 fix release pending
-        react:{
-          version:'18.0.2'
-        }
-      }
+      shared: ["react"]
     })
   ],
   preview: {
