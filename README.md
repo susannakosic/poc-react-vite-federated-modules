@@ -10,3 +10,7 @@ First, run `yarn`, then `yarn build` and `yarn serve`. This will build and serve
 - REMOTE (app): [localhost:5001](http://localhost:5001/)
 
 `CTRL + C` can only stop the host server. You can run `yarn stop` to stop all services.
+
+## CI pipeline
+
+The CI pipeline is configured to detect file changes and run `yarn build` only on packages that have changed. 

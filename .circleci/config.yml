@@ -1,24 +1,21 @@
 version: 2.1
-orbs:
-  node: circleci/node@4.7.0  
 
-jobs:
-  build:
-    docker:
-      - image: cimg/node:17.2.0
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: yarn      
-      - run:
-          command: yarn build
-          name: Build app
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
-  
+# use CircleCI's dynamic configuration feature
+setup: true
+
+# continue a pipeline based on the path of an updated fileset
+# https://support.circleci.com/hc/en-us/articles/10269416203163--Advanced-path-filtering-?
+orbs:
+  path-filtering: circleci/path-filtering@0.1.1
+
 workflows:
-  on_commit:
+  always-run:
     jobs:
-      - build      
+      - path-filtering/filter:
+          name: check-updated-files
+          base-revision: main
+          # Maps which path is updated and set the parameter for continue_config
+          mapping: |
+            packages/app/.* build-app-job true
+            packages/shared/.* build-shared-job true      
+          config-path: .circleci/continue-config.yml
