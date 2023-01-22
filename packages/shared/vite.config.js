@@ -5,9 +5,10 @@ import dns from 'dns'
 import * as dotenv from 'dotenv';
 
 dns.setDefaultResultOrder('verbatim')
-const config = dotenv.config();
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode, ssrBuild }) => {
+  const config = dotenv.config().parsed;
+  console.log(`config: ${JSON.stringify(config)}`);
   console.log(`command: ${command}, mode: ${mode}, ssrBuild: ${ssrBuild}`);
   return {
     plugins: [
