@@ -17,5 +17,6 @@ workflows:
           # Maps which path is updated and set the parameter for continue_config
           mapping: |
             packages/app/.* build-app-job true
-            packages/shared/.* build-shared-job true      
+            packages/shared/.* build-shared-job true
+            .* build-all-job true      
           config-path: .circleci/continue-config.yml

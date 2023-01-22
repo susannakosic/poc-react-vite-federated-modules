@@ -14,3 +14,7 @@ First, run `yarn`, then `yarn build` and `yarn serve`. This will build and serve
 ## CI pipeline
 
 The CI pipeline is configured to detect file changes and run `yarn build` only on packages that have changed. 
+
+## Demo
+
+[federated-module-host-app.s3.eu-west-3.amazonaws.com](https://federated-module-host-app.s3.eu-west-3.amazonaws.com/index.html)

@@ -12,6 +12,9 @@ parameters:
   build-shared-job:
     type: boolean
     default: false
+  build-all-job:
+    type: boolean
+    default: false  
 
 # conditional workflows
 # executed based upon pipeline parameter values. Each workflow calls a
@@ -29,7 +32,7 @@ jobs:
           command: yarn workspace app build
           name: Build app
       - persist_to_workspace:
-          root: ~/build/app
+          root: ~/project
           paths:
             - .
   
@@ -44,12 +47,12 @@ jobs:
           command: yarn workspace shared build
           name: Build shared
       - persist_to_workspace:
-          root: ~/build/shared
+          root: ~/project
           paths:
             - .
             
   deploy-app:
-    working_directory: ~/build/app
+    working_directory: ~/app
     docker:
       - image: innovatorjapan/awscli:latest
     steps:
@@ -63,7 +66,7 @@ jobs:
             fi
 
   deploy-shared:
-    working_directory: ~/build/shared
+    working_directory: ~/shared
     docker:
       - image: innovatorjapan/awscli:latest
     steps:
@@ -100,3 +103,23 @@ workflows:
                 - main
           requires:
               - build-shared
+  
+  build-all-job:
+    when: << pipeline.parameters.build-all-job >>
+    jobs:
+      - build-shared
+      - deploy-shared:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+              - build-shared
+      - build-app
+      - deploy-app:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+              - build-app 
