@@ -18,5 +18,5 @@ workflows:
           mapping: |
             packages/app/.* build-app-job true
             packages/shared/.* build-shared-job true
-            .* build-all-job true      
+            package.json build-all-job true      
           config-path: .circleci/continue-config.yml
