@@ -29,7 +29,9 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn      
       - run:
-          command: yarn workspace app build
+          command: |
+            yarn workspace app build
+            ls
           name: Build app
       - persist_to_workspace:
           root: ~/project
@@ -44,7 +46,9 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn      
       - run:
-          command: yarn workspace shared build
+          command: |
+            yarn workspace shared build
+            ls
           name: Build shared
       - persist_to_workspace:
           root: ~/project
@@ -61,6 +65,8 @@ jobs:
       - run:
           name: Deploy
           command: |
+            echo "Going to deploy app"
+            ls
             if [ $CIRCLE_BRANCH = 'main' ]; then
               aws s3 sync dist s3://federated-module-host-app --delete --exact-timestamps;
             fi
@@ -75,6 +81,8 @@ jobs:
       - run:
           name: Deploy
           command: |
+            echo "Going to deploy shared"
+            ls
             if [ $CIRCLE_BRANCH = 'main' ]; then
               aws s3 sync dist s3://federated-module-shared --delete --exact-timestamps;
             fi          
