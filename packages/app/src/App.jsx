@@ -6,9 +6,9 @@ function App() {
   return (
     <div className="App">
       This is the Home Page.
-      <div className="card">
-        <Button onClick={() => console.log(`running remote component`)} />        
-      </div>
+      
+      <Button onClick={() => console.log(`running remote component`)} />        
+      
       
     </div>
   )
