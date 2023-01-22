@@ -68,7 +68,7 @@ jobs:
             echo "Going to deploy app"
             ls
             if [ $CIRCLE_BRANCH = 'main' ]; then
-              aws s3 sync dist s3://federated-module-host-app --delete --exact-timestamps;
+              aws s3 sync packages/app/dist s3://federated-module-host-app --delete --exact-timestamps;
             fi
 
   deploy-shared:
@@ -84,7 +84,7 @@ jobs:
             echo "Going to deploy shared"
             ls
             if [ $CIRCLE_BRANCH = 'main' ]; then
-              aws s3 sync dist s3://federated-module-shared --delete --exact-timestamps;
+              aws s3 sync packages/shared/dist s3://federated-module-shared --delete --exact-timestamps;
             fi          
   
 workflows:
