@@ -29,7 +29,7 @@ jobs:
           command: yarn workspace app build
           name: Build app
       - persist_to_workspace:
-          root: ~/project
+          root: ~/build/app
           paths:
             - .
   
@@ -44,18 +44,59 @@ jobs:
           command: yarn workspace shared build
           name: Build shared
       - persist_to_workspace:
-          root: ~/project
+          root: ~/build/shared
           paths:
             - .
+            
+  deploy-app:
+    working_directory: ~/build/app
+    docker:
+      - image: innovatorjapan/awscli:latest
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy
+          command: |
+            if [ $CIRCLE_BRANCH = 'main' ]; then
+              aws s3 sync build s3://federated-module-host-app --delete --exact-timestamps;
+            fi
+
+  deploy-shared:
+    working_directory: ~/build/shared
+    docker:
+      - image: innovatorjapan/awscli:latest
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy
+          command: |
+            if [ $CIRCLE_BRANCH = 'main' ]; then
+              aws s3 sync build s3://federated-module-shared --delete --exact-timestamps;
+            fi          
   
 workflows:
-  # triggers when pipeline parameter build-app-job is true
   build-app-job:
     when: << pipeline.parameters.build-app-job >>
     jobs:
       - build-app
+      - deploy-app:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+              - build-app          
 
   build-shared-job:
     when: << pipeline.parameters.build-shared-job >>
     jobs:
       - build-shared
+      - deploy-shared:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+              - build-shared
