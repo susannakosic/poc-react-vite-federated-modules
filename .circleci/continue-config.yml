@@ -62,7 +62,7 @@ jobs:
           name: Deploy
           command: |
             if [ $CIRCLE_BRANCH = 'main' ]; then
-              aws s3 sync build s3://federated-module-host-app --delete --exact-timestamps;
+              aws s3 sync dist s3://federated-module-host-app --delete --exact-timestamps;
             fi
 
   deploy-shared:
@@ -76,7 +76,7 @@ jobs:
           name: Deploy
           command: |
             if [ $CIRCLE_BRANCH = 'main' ]; then
-              aws s3 sync build s3://federated-module-shared --delete --exact-timestamps;
+              aws s3 sync dist s3://federated-module-shared --delete --exact-timestamps;
             fi          
   
 workflows:
