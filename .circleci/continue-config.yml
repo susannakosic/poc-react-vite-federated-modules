@@ -15,6 +15,9 @@ parameters:
   build-all-job:
     type: boolean
     default: false  
+  build-contentfully-job:
+    type: boolean
+    default: false  
 
 # conditional workflows
 # executed based upon pipeline parameter values. Each workflow calls a
