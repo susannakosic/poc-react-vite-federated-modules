@@ -17,7 +17,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         name: 'contentfully',
         filename: 'contentfully.js',
         exposes: {
-          './Contentfully': './src/App.tsx'
+          './App': './src/App.tsx'
         },
         shared: ["react"]
       })

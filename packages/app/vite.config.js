@@ -19,6 +19,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
           name: 'app',
           remotes: {
             shared: `${config.SHARED_URL}/assets/shared.js`,
+            contentfully: `${config.CONTENTFULLY_URL}/assets/contentfully.js`,
           },
           shared: ["react"]
         })
