@@ -34,6 +34,14 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       target: 'esnext',
       minify: false,
       cssCodeSplit: false
-    }
+    },
+    server: {
+      host: 'localhost',
+      port: 5000,
+      strictPort: true,
+      cors: {
+        origin: config.APP_URL,
+      }
+    },
   }
 })

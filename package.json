@@ -9,6 +9,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
+    "dev": "yarn workspaces run dev",
     "build": "yarn workspaces run build",
     "serve": "cd ./packages/app && yarn preview & cd ./packages/shared && yarn preview",
     "stop": "kill-port --port 5000,5001"

@@ -32,6 +32,11 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         target: 'esnext',
         minify: false,
         cssCodeSplit: false
+      },
+      server: {
+        host: 'localhost',
+        port: 5001,
+        strictPort: true,
       }
     })
 });
