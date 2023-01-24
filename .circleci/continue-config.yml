@@ -120,7 +120,7 @@ jobs:
             echo "Going to deploy Contentfully"
             ls
             if [ $CIRCLE_BRANCH = 'main' ]; then
-              aws s3 sync packages/shared/dist s3://federated-module-contenfully --delete --exact-timestamps;
+              aws s3 sync packages/contentfully/dist s3://federated-module-contenfully --delete --exact-timestamps;
             fi
   
 workflows:

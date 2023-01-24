@@ -18,3 +18,22 @@ The CI pipeline is configured to filter changes and selectively build and deploy
 ## Demo
 
 [federated-module-host-app.s3.eu-west-3.amazonaws.com](https://federated-module-host-app.s3.eu-west-3.amazonaws.com/index.html)
+
+
+---
+
+[WIP]
+## How to add a new federated module
+
+1. Create the new package using the vite template
+$ cd packages
+$ yarn create vite newpackagename --template react-ts
+
+2. Setup new package as a federated module
+2.1 Add the following to the new package's `vite.config.js` file
+2.2 Add the following to the host `package.json` file
+
+3. Setup remote host / AWS S3 bucket
+3.1 Create a new S3 bucket and configure it as a static website with GET access policies
+3.2 Setup CORS configuration allowing access from the host app
+
