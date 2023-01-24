@@ -54,6 +54,23 @@ jobs:
           root: ~/project
           paths:
             - .
+
+  build-contentfully:
+    docker:
+      - image: cimg/node:17.2.0
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn      
+      - run:
+          command: |
+            yarn workspace contentfully build
+            ls
+          name: Build contentfully
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .          
             
   deploy-app:
     working_directory: ~/project
@@ -85,7 +102,23 @@ jobs:
             ls
             if [ $CIRCLE_BRANCH = 'main' ]; then
               aws s3 sync packages/shared/dist s3://federated-module-shared --delete --exact-timestamps;
-            fi          
+            fi
+  
+  deploy-contentfully:
+    working_directory: ~/project
+    docker:
+      - image: innovatorjapan/awscli:latest
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy
+          command: |
+            echo "Going to deploy Contentfully"
+            ls
+            if [ $CIRCLE_BRANCH = 'main' ]; then
+              aws s3 sync packages/shared/dist s3://federated-module-contenfully --delete --exact-timestamps;
+            fi
   
 workflows:
   build-app-job:
@@ -111,6 +144,18 @@ workflows:
                 - main
           requires:
               - build-shared
+
+  build-contentfully-job:
+    when: << pipeline.parameters.build-shared-job >>
+    jobs:
+      - build-contentfully
+      - deploy-contentfully:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+              - build-contentfully                        
   
   build-all-job:
     when: << pipeline.parameters.build-all-job >>
@@ -123,6 +168,14 @@ workflows:
                 - main
           requires:
               - build-shared
+      - build-contentfully
+      - deploy-contentfully:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+              - build-contentfully
       - build-app
       - deploy-app:
           filters:
@@ -130,4 +183,4 @@ workflows:
               only:
                 - main
           requires:
-              - build-app 
+              - build-app  

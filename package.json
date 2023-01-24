@@ -11,7 +11,10 @@
   "scripts": {
     "dev": "yarn workspaces run dev",
     "build": "yarn workspaces run build",
-    "serve": "cd ./packages/app && yarn preview & cd ./packages/shared && yarn preview",
+    "serve:shared": "cd ./packages/shared && yarn preview",
+    "serve:contentfully": "cd ./packages/contentfully && yarn preview",
+    "serve:app": "cd ./packages/app && yarn preview",
+    "serve": "yarn serve:shared && yarn serve:contentfully && yarn serve:app",
     "stop": "kill-port --port 5000,5001"
   },
   "devDependencies": {
